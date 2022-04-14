@@ -1,0 +1,13 @@
+diff --git a/node_modules/critters/dist/critters.js b/node_modules/critters/dist/critters.js
+index 36f2326..42d2ef4 100644
+--- a/node_modules/critters/dist/critters.js
++++ b/node_modules/critters/dist/critters.js
+@@ -960,7 +960,7 @@ class Critters {
+     }));
+ 
+     if (failedSelectors.length !== 0) {
+-      this.logger.warn(`${failedSelectors.length} rules skipped due to selector errors:\n  ${failedSelectors.join('\n  ')}`);
++      // this.logger.warn(`${failedSelectors.length} rules skipped due to selector errors:\n  ${failedSelectors.join('\n  ')}`);
+     }
+ 
+     const shouldPreloadFonts = options.fonts === true || options.preloadFonts === true;
