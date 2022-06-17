@@ -9,7 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prerender": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 node prerender.js",
-    "serve:prerender": "http-server -p 8080 -P http://localhost:8080? -c-1 dist",
+    "compress": "gzipper c ./dist && gzipper c ./dist --brotli",
+    "serve:prerender": "http-server -b -p 8080 -P http://localhost:8080? -c-1 dist",
     "serve:ssr": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 node server.js"
   },
   "private": true,
@@ -67,6 +68,7 @@
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "cross-env": "^7.0.3",
+    "gzipper": "^7.1.0",
     "http-server": "^14.1.0",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
