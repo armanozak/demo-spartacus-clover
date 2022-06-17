@@ -2,16 +2,15 @@ const { Engine } = require("@nguniversal/common/clover/server");
 const path = require("path");
 const fse = require("fs-extra");
 
-const dist = path.join(__dirname, "dist");
 const ssr = new Engine();
 
-module.exports = (route) => {
+module.exports = (options) => {
   suppressWarnings("NODE_TLS_REJECT_UNAUTHORIZED");
-  return render(ssr, route);
+  return render(ssr, options);
 };
 
-async function render(engine, url) {
-  const dir = path.join(dist, new URL(url).pathname);
+async function render(engine, { route, dist, htmlFilename }) {
+  const dir = path.join(dist, new URL(route).pathname);
   const htmlFile = path.join(dir, "index.html");
 
   fse.ensureDirSync(dir);
@@ -22,11 +21,11 @@ async function render(engine, url) {
 
   const html = await engine.render({
     publicPath: dist,
-    htmlFilename: "404.html",
-    url,
+    url: route,
+    htmlFilename,
   });
 
-  return fse.writeFile(htmlFile, html).then(() => url);
+  return fse.writeFile(htmlFile, html).then(() => route);
 }
 
 function suppressWarnings(...suppressed) {

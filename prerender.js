@@ -32,11 +32,17 @@ const piscina = new Piscina({
  *    - Create a robots.txt file.
  *    - ...
  */
+const DIST = path.join(__dirname, "dist");
+const HTML_FILENAME = "404.html";
 
 function render() {
   const routeFile = fs.readFileSync(path.join("routes.txt"), "utf8");
   const routes = routeFile.trim().split(/\r?\n/);
-  routes.map((route) => piscina.run(route).then(console.log));
+  routes.map((route) =>
+    piscina
+      .run({ route, dist: DIST, htmlFilename: HTML_FILENAME })
+      .then(console.log)
+  );
 }
 
 render();

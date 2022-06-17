@@ -3,8 +3,14 @@ const { Engine } = require("@nguniversal/common/clover/server");
 const path = require("path");
 const url = require("url");
 
-const PORT = 8080;
+/**
+ * This is just a demo.
+ * In an actual implementation, we would get some options from an external source.
+ */
 const DIST = path.join(__dirname, "dist");
+const PORT = 8080;
+const HOST = `localhost:${PORT}`;
+const HTML_FILENAME = "404.html";
 
 const app = express();
 
@@ -23,10 +29,10 @@ app.get("*", (req, res, next) => {
   ssr
     .render({
       publicPath: DIST,
-      htmlFilename: "404.html",
+      htmlFilename: HTML_FILENAME,
       url: url.format({
         protocol: req.protocol,
-        host: `localhost:${PORT}`,
+        host: HOST,
         pathname: req.path,
         query: req.query,
       }),
@@ -37,5 +43,5 @@ app.get("*", (req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Node Express server listening on http://localhost:${PORT}`);
+  console.log(`Node Express server listening on ${HOST}`);
 });
